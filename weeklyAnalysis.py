@@ -64,10 +64,11 @@ def plotAverage(fileName):
             avg.append((np.mean(eachDayPrice[i])-mondayavg)/mondayavg*100)
         #     dev.append(1.96*np.std(eachDayPrice[i]-mondayavg))/avg[i])
         # ax.errorbar(xaxis, avg, dev, linestyle = 'None', marker = '^')
+        return avg
         A = plt.plot(xaxis, avg, marker='.')
 
         plt.ylabel("Percent gain based on Monday closing price")
-
+        return A
         # ax2 = ax.twinx()
         # avg = []
         # dev = []
@@ -80,18 +81,41 @@ def plotAverage(fileName):
 
 
 xaxis = np.arange(0, 5, 1)
-plotAverage("SPY.csv")
-plotAverage("GOOG.csv")
-plotAverage("MSFT.csv")
-plotAverage("AAPL.csv")
-# plotAverage("TSLA.csv")
-plotAverage("FB.csv")
-plotAverage("NFLX.csv")
-plotAverage("KO.csv")
+plot1 = plt.figure(1)
+s, = plt.plot(xaxis, plotAverage("SPY.csv"), marker='.')
+g, = plt.plot(xaxis, plotAverage("GOOG.csv"), marker='.')
+m, = plt.plot(xaxis, plotAverage("MSFT.csv"), marker='.')
+a, = plt.plot(xaxis, plotAverage("AAPL.csv"), marker='.')
+t, = plt.plot(xaxis, plotAverage("TSLA.csv"), marker='.')
+f, = plt.plot(xaxis, plotAverage("FB.csv"), marker='.')
+n, = plt.plot(xaxis, plotAverage("NFLX.csv"), marker='.')
+k, = plt.plot(xaxis, plotAverage("KO.csv"), marker='.')
 
 plt.title(
     "Average percent gain each weekday over the past year")
 plt.xticks([0, 1, 2, 3, 4], [
     "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])
 plt.xlabel("Day of the Week")
+plt.ylabel("Percent gain based on Monday closing price")
+plt.legend([s, g, m, a, t, f, n, k], [
+    "SPY", "GOOG", "MSFT", "AAPL", "TSLA", "FB", "NFLX", "KO"])
+
+plot2 = plt.figure(2)
+s, = plt.plot(xaxis, plotAverage("SPY2.csv"), marker='.')
+g, = plt.plot(xaxis, plotAverage("GOOG2.csv"), marker='.')
+m, = plt.plot(xaxis, plotAverage("MSFT2.csv"), marker='.')
+a, = plt.plot(xaxis, plotAverage("AAPL2.csv"), marker='.')
+t, = plt.plot(xaxis, plotAverage("TSLA2.csv"), marker='.')
+f, = plt.plot(xaxis, plotAverage("FB2.csv"), marker='.')
+n, = plt.plot(xaxis, plotAverage("NFLX2.csv"), marker='.')
+k, = plt.plot(xaxis, plotAverage("KO2.csv"), marker='.')
+
+plt.title(
+    "Average percent gain each weekday over the past two years")
+plt.xticks([0, 1, 2, 3, 4], [
+    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])
+plt.xlabel("Day of the Week")
+plt.ylabel("Percent gain based on Monday closing price")
+plt.legend([s, g, m, a, t, f, n, k], [
+    "SPY", "GOOG", "MSFT", "AAPL", "TSLA", "FB", "NFLX", "KO"])
 plt.show()
