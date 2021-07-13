@@ -55,7 +55,7 @@ def main():
         "KO", "2020-7-12", "2021-7-12"), marker='.')
 
     plt.title(
-        "Average percent gain each weekday over the past two years")
+        "Average percent gain each weekday over the past year")
     analysisUsingCSV.graphLabels(s, g, m, a, f, n, k)
 
     plot2 = plt.figure(2)
