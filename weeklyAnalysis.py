@@ -3,18 +3,8 @@ import datetime
 import csv
 import matplotlib.pyplot as plt
 
-fileName = "TSLA.csv"
 
-
-def main():
-    plotAverage(fileName)
-    plt.title(
-        "Relative price of " + fileName[0:-4] + " for every day of the week over the past year")
-    plt.yticks([], [])
-    plt.xticks(np.arange(0, 5, 1), [
-        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])
-    plt.xlabel("Day of the Week")
-    plt.show()
+# fig, ax = plt.subplots()
 
 
 # Parses the csv file in the data folder into the days of the week, and the closing price at each day
@@ -56,21 +46,52 @@ def plotAllWeeks(fileName):
             weekDay = []
 
 
-# Plots the average/relative closing price at each day of the week, as well as the 95% confidence interval for each day.
+# Plots the average percent gain of each day of the week based on the Monday price
 def plotAverage(fileName):
     dayOfWeek, closingPrice = parseData(fileName)
-    totalPrice = [[], [], [], [], []]
+    eachDayPrice = [[], [], [], [], []]
     for i in range(len(dayOfWeek)):
         index = dayOfWeek[i]
-        totalPrice[index].append(closingPrice[i])
+        eachDayPrice[index].append(closingPrice[i])
+
     avg = []
     dev = []
-    for i in range(5):
-        avg.append(np.mean(totalPrice[i]))
-        dev.append(1.96*np.std(totalPrice[i])/avg[i])
-    plt.errorbar(np.arange(0, 5, 1), avg, dev, linestyle='None', marker='^')
-    plt.plot(np.arange(0, 5, 1), avg)
+    percentGain = True
+
+    if percentGain:
+        mondayavg = np.mean(eachDayPrice[0])
+        for i in range(5):
+            avg.append((np.mean(eachDayPrice[i])-mondayavg)/mondayavg*100)
+        #     dev.append(1.96*np.std(eachDayPrice[i]-mondayavg))/avg[i])
+        # ax.errorbar(xaxis, avg, dev, linestyle = 'None', marker = '^')
+        A = plt.plot(xaxis, avg, marker='.')
+
+        plt.ylabel("Percent gain based on Monday closing price")
+
+        # ax2 = ax.twinx()
+        # avg = []
+        # dev = []
+        # for i in range(5):
+        #     avg.append(np.mean(eachDayPrice[i]))
+        #     dev.append(1.96*np.std(eachDayPrice[i])/avg[i])
+        # ax2.errorbar(xaxis, avg, dev, c='red', marker='.')
+        # # ax2.plot(xaxis, avg)
+        # ax2.set_ylabel("Average Price ($)", c='red')
 
 
-if __name__ == '__main__':
-    main()
+xaxis = np.arange(0, 5, 1)
+plotAverage("SPY.csv")
+plotAverage("GOOG.csv")
+plotAverage("MSFT.csv")
+plotAverage("AAPL.csv")
+# plotAverage("TSLA.csv")
+plotAverage("FB.csv")
+plotAverage("NFLX.csv")
+plotAverage("KO.csv")
+
+plt.title(
+    "Average percent gain each weekday over the past year")
+plt.xticks([0, 1, 2, 3, 4], [
+    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])
+plt.xlabel("Day of the Week")
+plt.show()
