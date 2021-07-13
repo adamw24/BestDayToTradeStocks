@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas_datareader as pd
+import analysisUsingCSV
 
 
 # Uses the Pandas get_data_yahoo method to get the data of the specific asset. Returns the closing price and the day of the week.
@@ -46,13 +47,8 @@ k, = plt.plot(xaxis, plotAverage("KO", "2020-7-12", "2021-7-12"), marker='.')
 
 plt.title(
     "Average percent gain each weekday over the past two years")
-plt.xticks([0, 1, 2, 3, 4], [
-    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])
-plt.xlabel("Day of the Week")
-plt.ylabel("Percent gain based on Monday closing price")
-plt.legend([s, g, m, a, f, n, k], [
-    "SPY", "GOOG", "MSFT", "AAPL", "FB", "NFLX", "KO"])
-plt.show()
+analysisUsingCSV.graphLabels(s, g, m, a, f, n, k)
+
 
 plot2 = plt.figure(2)
 s, = plt.plot(xaxis, plotAverage("SPY", "2019-7-13", "2021-7-12"), marker='.')
@@ -66,13 +62,8 @@ k, = plt.plot(xaxis, plotAverage("KO", "2019-7-13", "2021-7-12"), marker='.')
 
 plt.title(
     "Average percent gain each weekday over the past two years")
-plt.xticks([0, 1, 2, 3, 4], [
-    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])
-plt.xlabel("Day of the Week")
-plt.ylabel("Percent gain based on Monday closing price")
-plt.legend([s, g, m, a, f, n, k], [
-    "SPY", "GOOG", "MSFT", "AAPL", "FB", "NFLX", "KO"])
-plt.show()
+analysisUsingCSV.graphLabels(s, g, m, a, f, n, k)
+
 plt.show()
 
 

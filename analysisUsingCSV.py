@@ -58,6 +58,15 @@ def plotAverageCSV(fileName):
     return avg
 
 
+def graphLabels(s, g, m, a, f, n, k):
+    plt.xticks([0, 1, 2, 3, 4], [
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])
+    plt.xlabel("Day of the Week")
+    plt.ylabel("Percent gain based on Monday closing price")
+    plt.legend([s, g, m, a, f, n, k], [
+        "SPY", "GOOG", "MSFT", "AAPL", "FB", "NFLX", "KO"])
+
+
 def main():
     xaxis = np.arange(0, 5, 1)
     plot1 = plt.figure(1)
@@ -72,12 +81,7 @@ def main():
 
     plt.title(
         "Average percent gain each weekday over the past year")
-    plt.xticks([0, 1, 2, 3, 4], [
-        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])
-    plt.xlabel("Day of the Week")
-    plt.ylabel("Percent gain based on Monday closing price")
-    plt.legend([s, g, m, a, f, n, k], [
-        "SPY", "GOOG", "MSFT", "AAPL", "FB", "NFLX", "KO"])
+    graphLabels(s, g, m, a, f, n, k)
 
     plot2 = plt.figure(2)
     s, = plt.plot(xaxis, plotAverageCSV("SPY2.csv"), marker='.')
@@ -91,12 +95,7 @@ def main():
 
     plt.title(
         "Average percent gain each weekday over the past two years")
-    plt.xticks([0, 1, 2, 3, 4], [
-        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])
-    plt.xlabel("Day of the Week")
-    plt.ylabel("Percent gain based on Monday closing price")
-    plt.legend([s, g, m, a, f, n, k], [
-        "SPY", "GOOG", "MSFT", "AAPL", "FB", "NFLX", "KO"])
+    graphLabels(s, g, m, a, f, n, k)
     plt.show()
 
 
